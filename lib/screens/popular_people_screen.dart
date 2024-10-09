@@ -1,3 +1,4 @@
+import 'package:emotion/screens/person_details_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../providers/person_provider.dart';
@@ -55,7 +56,12 @@ class _PopularPeopleScreenState extends State<PopularPeopleScreen> {
                 title: Text(person.name),
                 subtitle: Text('Popularity: ${person.popularity}'),
                 onTap: () {
-                  // Navigate to details screen (to be implemented)
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => PersonDetailsScreen(personId: person.id),
+                    ),
+                  );
                 },
               );
             },

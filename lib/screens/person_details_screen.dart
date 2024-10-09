@@ -1,3 +1,4 @@
+import 'package:emotion/screens/full_screen_image_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -67,11 +68,23 @@ class PersonDetailsScreen extends StatelessWidget {
                     itemCount: provider.personImages.length,
                     itemBuilder: (context, index) {
                       final image = provider.personImages[index];
-                      return CachedNetworkImage(
-                        imageUrl: 'https://image.tmdb.org/t/p/w500$image',
-                        placeholder: (context, url) => const CircularProgressIndicator(),
-                        errorWidget: (context, url, error) => const Icon(Icons.error),
-                        fit: BoxFit.cover,
+                      return GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => FullScreenImageScreen(
+                                imageUrl: 'https://image.tmdb.org/t/p/original$image',
+                              ),
+                            ),
+                          );
+                        },
+                        child: CachedNetworkImage(
+                          imageUrl: 'https://image.tmdb.org/t/p/w500$image',
+                          placeholder: (context, url) => const CircularProgressIndicator(),
+                          errorWidget: (context, url, error) => const Icon(Icons.error),
+                          fit: BoxFit.cover,
+                        ),
                       );
                     },
                   ),
