@@ -1,7 +1,7 @@
+import 'package:emotion/screens/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'providers/person_provider.dart';
-import 'screens/popular_people_screen.dart';
 
 void main() {
   runApp(
@@ -18,9 +18,34 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Popular People App',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primaryColor: Colors.purple.shade600,
+        appBarTheme: AppBarTheme(
+          backgroundColor: Colors.purple.shade600,
+          titleTextStyle: TextStyle(
+            color: Colors.white,
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
+          ),
+          iconTheme: IconThemeData(
+            color: Colors.orange.shade600,
+          ),
+        ),
+        tabBarTheme: TabBarTheme(
+          labelColor: Colors.black,
+          unselectedLabelColor: Colors.white60,
+          indicator: BoxDecoration(
+            color: Colors.purple.shade600,
+          ),
+          labelStyle: TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: 16,
+          ),
+        ),
+        iconTheme: IconThemeData(
+          color: Colors.orange.shade600,
+        ),
       ),
-      home: PopularPeopleScreen(),
+      home: SplashScreen(),
     );
   }
 }
