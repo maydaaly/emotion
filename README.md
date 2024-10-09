@@ -9,4 +9,4 @@ Features:
 - Local Storage: Saves the popular people list in a local database to display when there is no network.
 
 Technologies Used:
-TheMovieDB API, Provider for state management, Dio for image saving, sqflite for local storage and CachedNetworkImage for efficient image loading.
+TheMovieDB API, Provider for state management, Dio for image saving, sqflite for local storage and CachedNetworkImage for efficient image loading on a pixel 5 API 27 android device.
