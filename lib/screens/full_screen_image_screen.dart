@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:gallery_saver/gallery_saver.dart';
+import 'package:path/path.dart' as path;
 
 class FullScreenImageScreen extends StatelessWidget {
   final String imageUrl;
@@ -15,17 +16,22 @@ class FullScreenImageScreen extends StatelessWidget {
     var status = await Permission.storage.request();
     if (status.isGranted) {
       try {
+        // a unique file name for each image
         Directory tempDir = await getTemporaryDirectory();
-        String filePath = '${tempDir.path}/downloaded_image.jpg';
+        String fileName = path.basename(imageUrl);
+        String uniqueFileName = '${DateTime.now().millisecondsSinceEpoch}_$fileName';
+        String filePath = '${tempDir.path}/$uniqueFileName';
 
         await Dio().download(imageUrl, filePath);
 
-        // Save the image to the gallery
+        // Save the image to the gallery and trigger a media scan
         await GallerySaver.saveImage(filePath).then((success) {
           if (success != null && success) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text('Image saved to photos')),
-            );
+            File(filePath).stat().then((fileStat) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(content: Text('Image saved to photos')),
+              );
+            });
           } else {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(content: Text('Failed to save image to photos')),
